@@ -1,16 +1,32 @@
 import axios from 'axios';
 
-export const FETCH_FRIEND_START = 'FETCH_FRIEND_START';
-export const FETCH_FRIEND_SUCCESS = 'FETCH_FRIEND_SUCCESS';
-export const FETCH_FRIEND_ERROR = 'FETCH_FRIEND_ERROR';
+export const FETCHING = 'FETCHING';
+export const SUCCESS = 'SUCCESS';
+export const FAILURE = 'FAILURE';
 
-export const getFriend = () => dispatch => {
-    dispatch({ type: FETCH_FRIEND_START });
+export const LOGIN_START = 'LOGIN_START';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+export const login = creds => dispatch => {
+  dispatch({ type: LOGIN_START});
+  axios
+  .post('http://localhost:5000/api/login', creds)
+  .then( res => {
+    localStorage.setItem('token', res.data.payload)
+    dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload})
+    getFriends();
+})
+}
+
+export const getFriends = () => dispatch => {
+    dispatch({ type: FETCHING });
     axios
-      .get(`http://localhost:5000/api/friends`)
+      .get(`http://localhost:5000/api/friends`, {
+        headers: {Authorization: localStorage.getItem('token')}
+      })
       .then(res => {
         console.log(res)
-        dispatch({ type: FETCH_FRIEND_SUCCESS, payload: res });
+        dispatch({ type: SUCCESS, payload: res.data });
       })
-      .catch(err => dispatch({ type: FETCH_FRIEND_ERROR }));
+      .catch(err => dispatch({ type: FAILURE, payload: err }));
   };

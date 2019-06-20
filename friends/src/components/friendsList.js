@@ -1,13 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Friend from './Friend'
 
-export class friendsList extends Component {
-    render() {
-        return (
-            <div>
-                <p>Hi</p>
-            </div>
-        )
-    }
+export default function FriendsList() {
+    return (
+        <div>
+            <Friend />
+        </div>
+    )
 }
-
-export default friendsList

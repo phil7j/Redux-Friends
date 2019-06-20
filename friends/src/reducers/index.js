@@ -1,25 +1,34 @@
 import {
-  FETCH_FRIEND_START,
-  FETCH_FRIEND_SUCCESS,
-  FETCH_FRIEND_ERROR
+  FETCHING,
+  SUCCESS,
+  FAILURE
 } from '../actions';
 
 const initialState = {
-    error: null,
+    error: '',
     isFetching: false,
     friends: []
   };
 
   function reducer(state = initialState, action) {
-    console.log('reducer', action);
     switch (action.type) {
-
-      case FETCH_FRIEND_ERROR:
+      case FAILURE:
         return {
           ...state,
-          isLoading: false,
+          isFetching: false,
           error: 'Uh oh... something happened 😵!'
         };
+      case FETCHING:
+        return {
+          ...state,
+          isFetching: true
+        };
+      case SUCCESS:
+        return {
+          ...state,
+          isFetching: false,
+          friends: action.payload
+        }
       default:
         return state;
     }
