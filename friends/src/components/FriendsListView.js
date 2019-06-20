@@ -15,7 +15,7 @@ export class FriendsListView extends Component {
         }
         return (
             <div>
-                <FriendsList />
+                <FriendsList friends={this.props.friends}/>
             </div>
         )
     }

@@ -22,17 +22,20 @@ export class Login extends Component {
         })
     }
     render() {
+        if(this.props.isLoggingIn){
+            return <p>Logging In...</p>
+        }
         return (
             <div>
                 <form onSubmit={this.login}>
                     <input
-                    onChange="this.handleChanges"
+                    onChange={this.handleChanges}
                     name="username"
-                    value="this.state.credentials.username"
+                    value={this.state.credentials.username}
                     type="text"
                     placeholder="Username" />
                     <input
-                    onChange="this.handleChanges" name="password" value="this.state.credentials.password" type="password" placeholder="Password" />
+                    onChange={this.handleChanges} name="password" value={this.state.credentials.password} placeholder="password" />
                     <button>Log in</button>
                 </form>
             </div>
@@ -40,4 +43,8 @@ export class Login extends Component {
     }
 }
 
-export default connect(null, { login })(Login)
+const mapStateToProps = state => ({
+isLoggingIn: state.isLoggingIn
+})
+
+export default connect(mapStateToProps, { login })(Login)

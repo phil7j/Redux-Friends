@@ -1,13 +1,16 @@
 import {
   FETCHING,
   SUCCESS,
-  FAILURE
+  FAILURE,
+  LOGIN_START,
+  LOGIN_SUCCESS
 } from '../actions';
 
 const initialState = {
     error: '',
     isFetching: false,
-    friends: []
+    friends: [],
+    isLoggingIn: false
   };
 
   function reducer(state = initialState, action) {
@@ -28,7 +31,17 @@ const initialState = {
           ...state,
           isFetching: false,
           friends: action.payload
-        }
+        };
+        case LOGIN_START:
+          return {
+            ...state,
+            isLoggingIn: true
+          };
+        case LOGIN_SUCCESS:
+          return {
+            ...state,
+            isLoggingIn: false
+          }
       default:
         return state;
     }

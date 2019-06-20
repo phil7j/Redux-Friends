@@ -9,7 +9,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
 export const login = creds => dispatch => {
   dispatch({ type: LOGIN_START});
-  axios
+  return axios
   .post('http://localhost:5000/api/login', creds)
   .then( res => {
     localStorage.setItem('token', res.data.payload)
