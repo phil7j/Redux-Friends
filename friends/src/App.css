@@ -20,3 +20,12 @@
   width: 240px;
 }
 
+.btn {
+  background: black;
+  color: white;
+  font-size: 1.3rem;
+  padding: 15px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
